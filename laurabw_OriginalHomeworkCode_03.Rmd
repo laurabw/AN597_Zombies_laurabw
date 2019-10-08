@@ -13,8 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 *Load in the dataset “zombies.csv” from my GitHub repo at
 <https://github.com/fuzzyatelin/fuzzyatelin.github.io/tree/master/AN597_Fall19/>. 
-This data includes the first and last name and gender of the entire population of 1000 people who have survived the
-zombie apocalypse and are now ekeing out an existence somewhere on the East Coast, along with several other
+This data includes the first and last name and gender of the entire population of 1000 people who have survived
+the zombie apocalypse and are now ekeing out an existence somewhere on the East Coast, along with several other
 variables (height, weight, age, number of years of education, number of zombies they have killed, and college
 major).* 
 
@@ -26,5 +26,54 @@ d <- read.csv(f, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 head(d)
 ```
 
-This shows me the first 6 rows of the data and my 'Global Environment' in R Studio also shows that this data is now
-loaded for this work session.
+This shows me the first 6 rows of the data and my 'Global Environment' in R Studio also shows that this data is
+now loaded for this work session.
+
+## Homework Questions:
+
+1. *Calculate the population mean and standard deviation for each quantitative random variable (height, weight,
+age, number of zombies killed, and years of education). NOTE: You will not want to use the built in var() and sd()
+commands as these are for samples.*
+
+Height:
+    
+First, I want to make a vector that only includes all of the heights. To do so, I will use the code below:
+```{r}
+h <- c(d$height)
+head(h)
+```
+    
+Looks like this worked! The first six elements it gave back match the first six from the "height' column in
+our original table.
+
+Next, I will find the mean of this vector, using the mean() function built in to R:
+
+```{r}
+h_mean <- mean(h)
+h_mean
+```
+    
+This answer also makes sense, looking briefly over the overall data.
+    
+Next, we will find the population standard deviation for height. For this, we will use the sd() function in R,
+to find the sample standard deviation first:
+    
+```{r}
+h_sd <- sd(h)
+h_sd
+```
+    
+Now, to find the population standard deviation, we will take this result and multiply it by the square root of
+(N-1)/N in which N is the number of values for height:
+
+```{r}
+h_psd <- function(h){h_sd*sqrt((length(h)-1)/length(h))}
+h_psd(h)
+```
+
+As we can see, this is close to the number we got back when using sd() only, but this is now more accurate to describe the standard deviation for the entire population instead of just a sample from the population.
+
+We can next do this for each of the other quantitative random variables:
+
+    
+    
