@@ -398,7 +398,7 @@ head(d)</code></pre>
 <ol style="list-style-type: decimal">
 <li><em>Calculate the population mean and standard deviation for each quantitative random variable (height, weight, age, number of zombies killed, and years of education). NOTE: You will not want to use the built in var() and sd() commands as these are for samples.</em></li>
 </ol>
-<p>Height:</p>
+<p><strong>Height:</strong></p>
 <p>First, I want to make a vector that only includes all of the heights. To do so, I will use the code below:</p>
 <pre class="r"><code>h &lt;- c(d$height)
 head(h)</code></pre>
@@ -419,6 +419,67 @@ h_psd(h)</code></pre>
 <pre><code>## [1] 4.30797</code></pre>
 <p>As we can see, this is close to the number we got back when using sd() only, but this is now more accurate to describe the standard deviation for the entire population instead of just a sample from the population.</p>
 <p>We can next do this for each of the other quantitative random variables:</p>
+<p><strong>Weight:</strong></p>
+<p>First, we make a vector from just the ‘weight’ column from the original data frame:</p>
+<pre class="r"><code>w &lt;- c(d$weight)
+head(w)</code></pre>
+<pre><code>## [1] 132.0872 146.3753 152.9370 129.7418 132.4265 152.5246</code></pre>
+<p>Next, we find the mean:</p>
+<pre class="r"><code>w_mean &lt;- mean(w)
+w_mean</code></pre>
+<pre><code>## [1] 143.9075</code></pre>
+<p>This answer looks good! Next up, is sample standard deviation so we can find population standard deviation:</p>
+<pre class="r"><code>w_sd &lt;- sd(w)
+w_sd</code></pre>
+<pre><code>## [1] 18.40106</code></pre>
+<p>Ok, now we can put this into the population standard deviation function:</p>
+<pre class="r"><code>w_psd &lt;- function(w){w_sd*sqrt((length(w)-1)/length(w))}
+w_psd(w)</code></pre>
+<pre><code>## [1] 18.39186</code></pre>
+<p>Great, let’s keep going with the other variables!</p>
+<p><strong>Age:</strong></p>
+<p>First, we make a vector from just the ‘age’ column from the original data frame:</p>
+<pre class="r"><code>a &lt;- c(d$age)
+head(a)</code></pre>
+<pre><code>## [1] 17.64275 22.58951 21.91276 18.19058 21.10399 21.48355</code></pre>
+<p>Next, we find the mean:</p>
+<pre class="r"><code>a_mean &lt;- mean(a)
+a_mean</code></pre>
+<pre><code>## [1] 20.04696</code></pre>
+<p>Next up, is sample standard deviation so we can find population standard deviation:</p>
+<pre class="r"><code>a_sd &lt;- sd(a)
+a_sd</code></pre>
+<pre><code>## [1] 2.965066</code></pre>
+<p>Ok, now we can put this into the population standard deviation function:</p>
+<pre class="r"><code>a_psd &lt;- function(a){a_sd*sqrt((length(a)-1)/length(a))}
+a_psd(a)</code></pre>
+<pre><code>## [1] 2.963583</code></pre>
+<p>Looking good! Next up is ‘number of zombies killed.’ Fun!!</p>
+<p><strong>Number of Zombies Killed:</strong></p>
+<p>First, we make a vector from just the ‘Zombies_killed’ column from the original data frame:</p>
+<pre class="r"><code>k &lt;- c(d$zombies_killed)
+head(k)</code></pre>
+<pre><code>## [1] 2 5 1 5 4 1</code></pre>
+<p>Next, we find the mean:</p>
+<pre class="r"><code>k_mean &lt;- mean(k)
+k_mean</code></pre>
+<pre><code>## [1] 2.992</code></pre>
+<p>Looks like on average they haven’t had to kill TOO many zombies…yet!</p>
+<p>Next up, is sample standard deviation so we can find population standard deviation:</p>
+<pre class="r"><code>k_sd &lt;- sd(k)
+k_sd</code></pre>
+<pre><code>## [1] 1.748426</code></pre>
+<p>Ok, now we can put this into the population standard deviation function:</p>
+<pre class="r"><code>k_psd &lt;- function(k){k_sd*sqrt((length(k)-1)/length(k))}
+k_psd(k)</code></pre>
+<pre><code>## [1] 1.747551</code></pre>
+<p>Awesome! Almost there. The last variable we will get the mean and population standard deviation for is ‘years of education.’</p>
+<p><strong>Years of Education:</strong></p>
+<p>First, we make a vector from just the ‘year_of_education’ column from the original data frame:</p>
+<pre class="r"><code>e &lt;- c(d$years_of_education)
+head(e)</code></pre>
+<pre><code>## [1] 1 3 1 6 3 4</code></pre>
+<p>Next, we find the mean:</p>
 </div>
 
 

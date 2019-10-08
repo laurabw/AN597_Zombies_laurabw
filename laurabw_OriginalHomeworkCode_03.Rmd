@@ -32,10 +32,9 @@ now loaded for this work session.
 ## Homework Questions:
 
 1. *Calculate the population mean and standard deviation for each quantitative random variable (height, weight,
-age, number of zombies killed, and years of education). NOTE: You will not want to use the built in var() and sd()
-commands as these are for samples.*
+age, number of zombies killed, and years of education). NOTE: You will not want to use the built in var() and sd() commands as these are for samples.*
 
-Height:
+**Height:**
     
 First, I want to make a vector that only includes all of the heights. To do so, I will use the code below:
 ```{r}
@@ -75,5 +74,137 @@ As we can see, this is close to the number we got back when using sd() only, but
 
 We can next do this for each of the other quantitative random variables:
 
-    
-    
+**Weight:**    
+
+First, we make a vector from just the 'weight' column from the original data frame:
+
+```{r}
+w <- c(d$weight)
+head(w)
+```
+
+Next, we find the mean:
+
+```{r}
+w_mean <- mean(w)
+w_mean
+```
+
+This answer looks good! Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+w_sd <- sd(w)
+w_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+w_psd <- function(w){w_sd*sqrt((length(w)-1)/length(w))}
+w_psd(w)
+```
+
+Great, let's keep going with the other variables!
+
+**Age:**
+
+First, we make a vector from just the 'age' column from the original data frame:
+
+```{r}
+a <- c(d$age)
+head(a)
+```
+
+Next, we find the mean:
+
+```{r}
+a_mean <- mean(a)
+a_mean
+```
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+a_sd <- sd(a)
+a_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+a_psd <- function(a){a_sd*sqrt((length(a)-1)/length(a))}
+a_psd(a)
+```
+
+Looking good! Next up is 'number of zombies killed.' Fun!!
+
+**Number of Zombies Killed:**
+
+First, we make a vector from just the 'Zombies_killed' column from the original data frame:
+
+```{r}
+k <- c(d$zombies_killed)
+head(k)
+```
+
+Next, we find the mean:
+
+```{r}
+k_mean <- mean(k)
+k_mean
+```
+
+Looks like on average they haven't had to kill TOO many zombies...yet!
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+k_sd <- sd(k)
+k_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+k_psd <- function(k){k_sd*sqrt((length(k)-1)/length(k))}
+k_psd(k)
+```
+
+Awesome! Almost there. The last variable we will get the mean and population standard deviation for is 'years of
+education.'
+
+**Years of Education:**
+
+First, we make a vector from just the 'year_of_education' column from the original data frame:
+
+```{r}
+e <- c(d$years_of_education)
+head(e)
+```
+
+Next, we find the mean:
+
+```{r}
+e_mean <- mean(e)
+e_mean
+```
+
+Most definitely a college town!
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+e_sd <- sd(e)
+e_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+e_psd <- function(e){e_sd*sqrt((length(e)-1)/length(e))}
+e_psd(e)
+```
+
+Great! Now we have all of our population means and standard deviations for this variables, we can move on to 
+question #2!
+
