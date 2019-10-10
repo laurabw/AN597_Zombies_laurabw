@@ -294,3 +294,32 @@ edu_gender
 
 Looks good! On to question #3.
 
+3. *Use {ggplot} to make scatterplots of height and weight in relation to age. Do these variables seem to be
+related? In what way?*
+
+Here is the scatterplot for **Height in Relation to Age:**
+
+```{r}
+height_age <- ggplot(data = d, aes(x = age, y = height))
+height_age <- height_age + xlab("Age") + ylab("Height")
+height_age <- height_age + geom_point()
+height_age <- height_age + ggtitle("Height in Relation to Age")
+height_age
+```
+
+There seems to be a general positive correlation between height and age, in that, as one gets older, the tend to
+get taller, with the assumption that this would plateau at a certain point.
+
+Here is the scatterplot for **Weight in Relation to Age:**
+
+```{r}
+weight_age <- ggplot(data = d, aes(x = age, y = weight))
+weight_age <- weight_age + xlab("Age") + ylab("Weight")
+weight_age <- weight_age + geom_point()
+weight_age <- weight_age + ggtitle("Weight in Relation to Age")
+weight_age
+```
+
+While this one also appears to have an overall positive correlation, in that as one gets older, they tend to
+weight more, it seems a bit weaker than the relationship between height and age.
+
