@@ -210,10 +210,13 @@ question #2!
 
 2. *Use {ggplot} to make boxplots of each of these variables by gender.*
 
-At first, I think I made this way too hard, thinking I would need to write functions into the {ggplot} function.
-But, then I realized that this is part of the awesomeness of {ggplot}, that it has built-in functions already and
-knows what to do with the data when you ask it to create a boxplot based on specific variables. After looking
-through older modules, this is what I came up with:
+First off, this is an interesting population in which every person identifies as either male or female. While I
+am not one for people having to identify by a strict gender binary, we will go with it for this exercise. 
+
+As far as coding, at first, I think I made this way too hard, thinking I would need to write functions into the
+{ggplot} function. But, then I realized that this is part of the awesomeness of {ggplot}, that it has built-in
+functions already and knows what to do with the data when you ask it to create a boxplot based on specific
+variables. After looking through older modules, this is what I came up with:
 
 **Height**
         
@@ -250,5 +253,44 @@ This shows us that the ages of both males and females are the really close for t
 Also, I took out the line of code for angling the x-axis labels and it looks good. They can stay horizontal like
 this when we only have two groups we are comparing.
         
+Next up weight (yes, I realize I did age and weight out of order. Oh well!):
 
+**Weight**
+
+```{r}
+weight_gender <- ggplot(data=d, aes(x=gender, y=weight)) 
+weight_gender <- weight_gender + geom_boxplot() 
+weight_gender <- weight_gender + ylab("Weight") 
+weight_gender <- weight_gender + xlab("Gender") 
+weight_gender <- weight_gender + ggtitle("Weight by Gender") 
+weight_gender
+```
+
+Looks good! Males overall weigh more than females, which makes sense.
+
+**Number of Zombies Killed**
+
+```{r}
+kills_gender <- ggplot(data=d, aes(x=gender, y=zombies_killed)) 
+kills_gender <- kills_gender + geom_boxplot() 
+kills_gender <- kills_gender + ylab("Number of Zombies Killed") 
+kills_gender <- kills_gender + xlab("Gender") 
+kills_gender <- kills_gender + ggtitle("Number of Zombie Kills by Gender") 
+kills_gender
+```
+
+Looks like zombie kills are not differentiate by gender, with some of the highest kills being by females. 
+
+**Years of Education**
+
+```{r}
+edu_gender <- ggplot(data=d, aes(x=gender, y=years_of_education)) 
+edu_gender <- edu_gender + geom_boxplot() 
+edu_gender <- edu_gender + ylab("Years of Education") 
+edu_gender <- edu_gender + xlab("Gender") 
+edu_gender <- edu_gender + ggtitle("Years of Education by Gender") 
+edu_gender
+```
+
+Looks good! On to question #3.
 
