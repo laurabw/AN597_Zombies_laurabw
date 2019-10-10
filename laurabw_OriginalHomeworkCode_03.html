@@ -480,6 +480,19 @@ k_psd(k)</code></pre>
 head(e)</code></pre>
 <pre><code>## [1] 1 3 1 6 3 4</code></pre>
 <p>Next, we find the mean:</p>
+<pre class="r"><code>e_mean &lt;- mean(e)
+e_mean</code></pre>
+<pre><code>## [1] 2.996</code></pre>
+<p>Most definitely a college town!</p>
+<p>Next up, is sample standard deviation so we can find population standard deviation:</p>
+<pre class="r"><code>e_sd &lt;- sd(e)
+e_sd</code></pre>
+<pre><code>## [1] 1.676543</code></pre>
+<p>Ok, now we can put this into the population standard deviation function:</p>
+<pre class="r"><code>e_psd &lt;- function(e){e_sd*sqrt((length(e)-1)/length(e))}
+e_psd(e)</code></pre>
+<pre><code>## [1] 1.675704</code></pre>
+<p>Great! Now we have all of our population means and standard deviations for this variables, we can move on to question #2!</p>
 </div>
 
 
