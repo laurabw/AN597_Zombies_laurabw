@@ -208,3 +208,47 @@ e_psd(e)
 Great! Now we have all of our population means and standard deviations for this variables, we can move on to 
 question #2!
 
+2. *Use {ggplot} to make boxplots of each of these variables by gender.*
+
+At first, I think I made this way too hard, thinking I would need to write functions into the {ggplot} function.
+But, then I realized that this is part of the awesomeness of {ggplot}, that it has built-in functions already and
+knows what to do with the data when you ask it to create a boxplot based on specific variables. After looking
+through older modules, this is what I came up with:
+
+**Height**
+        
+```{r}
+library(ggplot2)
+height_gender <- ggplot(data=d, aes(x=gender, y=height)) #this means I am pulling from the data frame "d" and that the variables for my x axis will be pulled from the column marked "gender" and grouped by each category found, in this case, male and female, and that my y axis variables will be pulled from the column marked "height"
+height_gender <- height_gender + geom_boxplot() #this tells R that we specifically want a boxplot
+height_gender <- height_gender + theme(axis.text.x=element_text(angle=90)) #each element of the X axis will be at a 90 degree angle. 
+height_gender <- height_gender + ylab("Height") #this means the y axis will be labeled "Height"
+height_gender <- height_gender + xlab("Gender") #this means the x axis will be labeled "Gender"
+height_gender <- height_gender + ggtitle("Height by Gender") #this means the label at the top of plot will be "Height by Gender"
+height_gender
+```
+
+This looks pretty good! Not sure why the title is not centered, but all the elements are there. Also, probably do
+not need to have "Female" and "Male" at a 90 degree angle, but it is cool to know how to do this for making a box
+plot that has a large number of x axis variables.   
+
+Now we can do the same for the other variables:
+
+**Age**
+
+```{r}
+age_gender <- ggplot(data=d, aes(x=gender, y=age)) 
+age_gender <- age_gender + geom_boxplot() 
+age_gender <- age_gender + ylab("Age") 
+age_gender <- age_gender + xlab("Gender") 
+age_gender <- age_gender + ggtitle("Age by Gender") 
+age_gender
+```
+
+This shows us that the ages of both males and females are the really close for this zombie killing population!
+
+Also, I took out the line of code for angling the x-axis labels and it looks good. They can stay horizontal like
+this when we only have two groups we are comparing.
+        
+
+
