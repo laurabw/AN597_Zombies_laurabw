@@ -321,5 +321,23 @@ weight_age
 ```
 
 While this one also appears to have an overall positive correlation, in that as one gets older, they tend to
-weight more, it seems a bit weaker than the relationship between height and age.
+weigh more, it seems a bit weaker than the relationship between height and age.
 
+4. Using histograms and Q-Q plots, check whether the quantitative variables seem to be drawn from a normal
+distribution. Which seem to be and which do not (hint: not all are drawn from the normal distribution)? For those
+that are not normal, can you determine from which common distribution they are drawn?
+
+Here is the Q-Q plot for Height:
+
+```{r}
+qqnorm(h, main= "QQplot for Height")
+qqline(h, col = "gray") 
+```
+
+Here is a historgram for Height:
+
+```{r}
+hist(h)
+```
+
+asjkdhfkjs
