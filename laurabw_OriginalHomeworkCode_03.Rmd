@@ -323,21 +323,95 @@ weight_age
 While this one also appears to have an overall positive correlation, in that as one gets older, they tend to
 weigh more, it seems a bit weaker than the relationship between height and age.
 
-4. Using histograms and Q-Q plots, check whether the quantitative variables seem to be drawn from a normal
+4. *Using histograms and Q-Q plots, check whether the quantitative variables seem to be drawn from a normal
 distribution. Which seem to be and which do not (hint: not all are drawn from the normal distribution)? For those
-that are not normal, can you determine from which common distribution they are drawn?
+that are not normal, can you determine from which common distribution they are drawn?*
 
 Here is the Q-Q plot for Height:
 
 ```{r}
 qqnorm(h, main= "QQplot for Height")
-qqline(h, col = "gray") 
+qqline(h, col = "gray") #Makes a Q-Q line to see how the points fall on this line, and the color of the line is gray
 ```
 
 Here is a historgram for Height:
 
 ```{r}
-hist(h)
+hist(h, main = "Histogram for Height", xlab = "Height") #code for a histogram along with the main title of the graph and the x-axis label
 ```
 
-asjkdhfkjs
+Based on both of these, it looks like height is normally distributed.
+
+Here is the QQplot for Weight:
+
+```{r}
+qqnorm(w, main= "QQplot for Weight")
+qqline(w, col = "gray") 
+```
+
+Historgram for Weight:
+
+```{r}
+hist(h, main = "Histogram for Weight", xlab = "Weight")
+```
+
+Weight also looks normally distributed, which makes sense for this population.
+
+QQplot for Age:
+
+```{r}
+qqnorm(a, main= "QQplot for Age")
+qqline(a, col = "gray") 
+```
+
+Here is the histogram for Age:
+
+```{r}
+hist(a, main = "Histogram for Age", xlab = "Age in Years")
+```
+
+Overall, age seems to be normally distributed, though not quite as standardized as height and weight.
+
+Here is the QQplot for Number of Zombies Killed:
+
+```{r}
+qqnorm(k, main= "QQplot for Number of Zombies Killed")
+qqline(k, col = "gray") 
+```
+
+Here is the histogram for Number of Zombies Killed:
+
+```{r}
+hist(k, main = "Histogram for Number of Zombies Killed", xlab = "Number of Zombies Killed")
+```
+
+This is not normally distributed, as can be seen from both the QQplot with the points and line not matching up at
+all. On the histogram, the distribution is skewed to one end, and there cannot be negative follows. I am not sure
+what type of distribution this is? From looking at a few pages online, I saw similar distributed data called,
+"Right-Skewed" or "Positive Skewedness." May need to do a log transformation if want to analyze the same way we
+would a normal distribution?
+
+Here is the QQ plot for Years of Education:
+
+```{r}
+qqnorm(e, main= "QQplot for Years of Education")
+qqline(e, col = "gray")
+```
+
+And here is the histogram:
+
+```{r}
+hist(e, main = "Histogram for Years of Education", xlab = "Years of Edcuation")
+```
+
+This one follows a similar pattern to number of zombies killed, with a one end of the data skewed instead of
+having a central tendency, or "Right Skewed."
+
+5. *Now use the sample() function to sample ONE subset of 30 zombie survivors (without replacement) from this
+population and calculate the mean and sample standard deviation for each variable. Also estimate the standard
+error for each variable, and construct the 95% confidence interval for each mean. Note that for the variables
+that are not drawn from the normal distribution, you may need to base your estimate of the CIs on slightly
+different code than for the normal.*
+
+
+
