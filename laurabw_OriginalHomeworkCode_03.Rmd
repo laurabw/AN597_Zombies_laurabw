@@ -502,7 +502,7 @@ k_sample_se
 Ok, now let's try bootstrapping for the CIs:
 
 ```{r}
-set <- NULL # sets up a dummy variable to hold our 10000 simulations
+set <- NULL 
 n <- 30
 for (i in 1:1000){
     set[i] <- mean(sample(k, n, replace=TRUE))
@@ -529,7 +529,7 @@ e_sample_se
 And now we will try bootstrapping again for the CIs:
 
 ```{r}
-set <- NULL # sets up a dummy variable to hold our 10000 simulations
+set <- NULL 
 n <- 30
 for (i in 1:1000){
     set[i] <- mean(sample(e, n, replace=TRUE))
@@ -541,4 +541,129 @@ I guess this makes sense too, but the numbers are really similar to what we got 
 Not sure if this is right? And also unsure if I should have somehow adjusted the code to reflect the numbers from
 just sample I pulled? The way I have it set up now, it is pulling from the entire population. I might play around
 with it some more before turning in.
+
+6. Now draw 99 more random samples of 30 zombie apocalypse survivors, and calculate the mean for each variable
+for each of these samples. Together with the first sample you drew, you now have a set of 100 means for each
+variable (each based on 30 observations), which constitutes a sampling distribution for each variable. What are
+the means and standard deviations of this distribution of means for each variable? How do the standard deviations
+of means compare to the standard errors estimated in [5]? What do these sampling distributions look like (a graph
+might help here)? Are they normally distributed? What about for those variables that you concluded were not
+originally drawn from a normal distribution?
+
+Ok, looks like we learned how to do this in **Module 8.** Let's try it for **Height:**
+
+```{r}
+h_sample_dis <- NULL 
+for (i in 1:99){
+    h_sample_dis[[i]] <- sample(h,size=30, replace=FALSE)
+}
+head(h_sample_dis)
+```
+
+Ok, now we have a sampling distribution. From this, let's find the mean and standard deviation:
+
+```{r}
+hsdm <- NULL
+for (i in 1:99){
+    hsdm[i] <- mean(h_sample_dis[[i]])
+}
+mean(hsdm)
+sd(hsdm)
+```
+
+Great! This looks good. Let's try a graph too:
+
+```{r}
+hist(hsdm, main = "Histogram for Sampling Distribution of Height", xlab = "Height")
+```
+
+Seems to be normally distributed.
+
+Ok, now let's do this for all the other variables.
+
+**Weight:**
+
+```{r}
+w_sample_dis <- NULL 
+for (i in 1:99){
+    w_sample_dis[[i]] <- sample(w,size=30, replace=FALSE)
+}
+head(w_sample_dis)
+wsdm <- NULL
+for (i in 1:99){
+    wsdm[i] <- mean(w_sample_dis[[i]])
+}
+mean(wsdm)
+sd(wsdm)
+hist(wsdm, main = "Histogram for Sampling Distribution of Weight", xlab = "Weight")
+```
+
+
+Seems like it is close to a normal distribution.
+
+**Age:**
+
+```{r}
+a_sample_dis <- NULL 
+for (i in 1:99){
+    a_sample_dis[[i]] <- sample(a,size=30, replace=FALSE)
+}
+head(a_sample_dis)
+asdm <- NULL
+for (i in 1:99){
+    asdm[i] <- mean(a_sample_dis[[i]])
+}
+mean(asdm)
+sd(asdm)
+hist(asdm, main = "Histogram for Sampling Distribution of Age", xlab = "Age")
+```
+
+Seems close to normal distribution. I wonder if this would be more clear if I were to play with the bin size for
+the x-axis? May try this for final code.
+
+**Number of Zombies Killed:**
+
+```{r}
+k_sample_dis <- NULL 
+for (i in 1:99){
+    k_sample_dis[[i]] <- sample(k,size=30, replace=FALSE)
+}
+head(k_sample_dis)
+ksdm <- NULL
+for (i in 1:99){
+    ksdm[i] <- mean(k_sample_dis[[i]])
+}
+mean(ksdm)
+sd(ksdm)
+hist(ksdm, main = "Histogram for Sampling Distribution of Zombie Kills", xlab = "Number of Zombies Killed")
+```
+
+This one still seems a bit right-skewed.
+
+**Years of Education:**
+
+```{r}
+e_sample_dis <- NULL 
+for (i in 1:99){
+    e_sample_dis[[i]] <- sample(e,size=30, replace=FALSE)
+}
+head(e_sample_dis)
+esdm <- NULL
+for (i in 1:99){
+    esdm[i] <- mean(e_sample_dis[[i]])
+}
+mean(esdm)
+sd(esdm)
+hist(esdm, main = "Histogram for Sampling Distribution of Years of Education", xlab = "Years of Education")
+```
+
+This one looks like more of a normal distribution than the population distribution for this same variable. Still 
+slightly right-skewed though?
+
+As far as similarities of means and standard deviations, using the sampling distribution gives us means and
+standard deviations that are much closer to the population mean and standard deviation. This makes sense as we
+sampled so many more of the variables to calculate these answers. The closer the sample size is to the population
+size, the more accurate our calculations made from these sampling distributions is going to be.
+
+
 
