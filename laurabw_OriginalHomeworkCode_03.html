@@ -613,6 +613,79 @@ qqline(e, col = &quot;gray&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><em>Now use the sample() function to sample ONE subset of 30 zombie survivors (without replacement) from this population and calculate the mean and sample standard deviation for each variable. Also estimate the standard error for each variable, and construct the 95% confidence interval for each mean. Note that for the variables that are not drawn from the normal distribution, you may need to base your estimate of the CIs on slightly different code than for the normal.</em></li>
 </ol>
+<p>Ok, let’s try this for our first variable, which is Height:</p>
+<p>First, we will take a sample of 30 random heights from our population of heights:</p>
+<pre class="r"><code>h_sample &lt;- sample(h, size = 30)
+h_sample</code></pre>
+<pre><code>##  [1] 60.27461 66.12076 61.62814 74.87625 63.94389 78.36087 69.85086
+##  [8] 65.77360 69.96347 63.49785 67.57963 62.82903 71.24438 67.49037
+## [15] 69.60391 65.18042 65.71919 67.30731 68.86074 68.18345 69.87253
+## [22] 72.58839 66.23402 58.13216 68.08981 70.18293 69.78112 72.98792
+## [29] 65.68296 78.76891</code></pre>
+<p>Great! Now let’s find the mean and standard deviation for this sample:</p>
+<pre class="r"><code>h_sample_mean &lt;- mean(h_sample)
+h_sample_mean</code></pre>
+<pre><code>## [1] 68.02032</code></pre>
+<pre class="r"><code>h_sample_sd &lt;- sd(h_sample) # We can use just the sd() function this time since this is a sample standard deviation and not a population standard deviation
+h_sample_sd</code></pre>
+<pre><code>## [1] 4.702483</code></pre>
+<p>Here is the standard error:</p>
+<pre class="r"><code>library(sciplot)
+h_sample_se &lt;- se(h_sample)
+h_sample_se</code></pre>
+<pre><code>## [1] 0.8585521</code></pre>
+<p>For the confidence intervals, we will do:</p>
+<pre class="r"><code>upper_h &lt;- h_sample_mean + qnorm(0.975) * h_sample_se
+lower_h &lt;- h_sample_mean + qnorm(0.025) * h_sample_se
+h_sample_ci &lt;- (c(lower_h, upper_h))
+h_sample_ci</code></pre>
+<pre><code>## [1] 66.33758 69.70305</code></pre>
+<p>Awesome! Now let’s do the same for the other variables.</p>
+<p>Next up is weight. I am going to try to put all the code together to streamline the process:</p>
+<pre class="r"><code>w_sample &lt;- sample(w, size = 30)
+w_sample</code></pre>
+<pre><code>##  [1] 144.2862 157.0878 150.7262 148.2651 150.3066 135.6524 169.0869
+##  [8] 160.7956 191.0817 145.9364 119.6649 150.9624 149.9921 132.5518
+## [15] 155.8221 156.9867 142.9193 139.2358 162.3697 137.1078 143.8071
+## [22] 138.6681 161.1223 133.8279 136.0072 128.0137 127.4882 114.1550
+## [29] 167.5378 139.2027</code></pre>
+<pre class="r"><code>w_sample_mean &lt;- mean(w_sample)
+w_sample_mean</code></pre>
+<pre><code>## [1] 146.3556</code></pre>
+<pre class="r"><code>w_sample_sd &lt;- sd(w_sample)
+w_sample_sd</code></pre>
+<pre><code>## [1] 15.887</code></pre>
+<pre class="r"><code>w_sample_se &lt;- se(w_sample)
+w_sample_se</code></pre>
+<pre><code>## [1] 2.900555</code></pre>
+<pre class="r"><code>upper_w &lt;- w_sample_mean + qnorm(0.975) * w_sample_se
+lower_w &lt;- w_sample_mean + qnorm(0.025) * w_sample_se
+w_sample_ci &lt;- (c(lower_w, upper_w))
+w_sample_ci</code></pre>
+<pre><code>## [1] 140.6706 152.0406</code></pre>
+<p>Looks good! Now we can do the same for Age, since it is also a normally distributed random variable:</p>
+<pre class="r"><code>a_sample &lt;- sample(a, size = 30)
+a_sample</code></pre>
+<pre><code>##  [1] 13.51241 20.49434 19.67025 25.45554 21.80337 21.33236 14.23326
+##  [8] 19.19737 18.51631 19.07113 16.15942 19.97048 14.44936 21.33672
+## [15] 21.14685 17.98520 20.16242 20.71514 14.39070 18.18894 16.38548
+## [22] 16.65884 18.72847 22.35030 24.03706 22.46561 19.62351 18.92719
+## [29] 20.81643 23.23767</code></pre>
+<pre class="r"><code>a_sample_mean &lt;- mean(a_sample)
+a_sample_mean</code></pre>
+<pre><code>## [1] 19.3674</code></pre>
+<pre class="r"><code>a_sample_sd &lt;- sd(a_sample)
+a_sample_sd</code></pre>
+<pre><code>## [1] 2.973342</code></pre>
+<pre class="r"><code>a_sample_se &lt;- se(a_sample)
+a_sample_se</code></pre>
+<pre><code>## [1] 0.5428555</code></pre>
+<pre class="r"><code>upper_a &lt;- a_sample_mean + qnorm(0.975) * a_sample_se
+lower_a &lt;- a_sample_mean + qnorm(0.025) * a_sample_se
+a_sample_ci &lt;- (c(lower_a, upper_a))
+a_sample_ci</code></pre>
+<pre><code>## [1] 18.30343 20.43138</code></pre>
+<p>Now we can move on to our two variables that are not normally distributed. We will</p>
 </div>
 
 

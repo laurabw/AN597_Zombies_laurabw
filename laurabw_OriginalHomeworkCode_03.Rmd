@@ -413,5 +413,75 @@ error for each variable, and construct the 95% confidence interval for each mean
 that are not drawn from the normal distribution, you may need to base your estimate of the CIs on slightly
 different code than for the normal.*
 
+Ok, let's try this for our first variable, which is Height:
 
+First, we will take a sample of 30 random heights from our population of heights:
 
+```{r}
+h_sample <- sample(h, size = 30)
+h_sample
+```
+
+Great! Now let's find the mean and standard deviation for this sample:
+
+```{r}
+h_sample_mean <- mean(h_sample)
+h_sample_mean
+h_sample_sd <- sd(h_sample) # We can use just the sd() function this time since this is a sample standard deviation and not a population standard deviation
+h_sample_sd
+```
+
+Here is the standard error:
+
+```{r}
+library(sciplot)
+h_sample_se <- se(h_sample)
+h_sample_se
+```
+
+For the confidence intervals, we will do:
+
+```{r}
+upper_h <- h_sample_mean + qnorm(0.975) * h_sample_se
+lower_h <- h_sample_mean + qnorm(0.025) * h_sample_se
+h_sample_ci <- (c(lower_h, upper_h))
+h_sample_ci
+```
+
+Awesome! Now let's do the same for the other variables.
+
+Next up is weight. I am going to try to put all the code together to streamline the process:
+
+```{r}
+w_sample <- sample(w, size = 30)
+w_sample
+w_sample_mean <- mean(w_sample)
+w_sample_mean
+w_sample_sd <- sd(w_sample)
+w_sample_sd
+w_sample_se <- se(w_sample)
+w_sample_se
+upper_w <- w_sample_mean + qnorm(0.975) * w_sample_se
+lower_w <- w_sample_mean + qnorm(0.025) * w_sample_se
+w_sample_ci <- (c(lower_w, upper_w))
+w_sample_ci
+```
+
+Looks good! Now we can do the same for Age, since it is also a normally distributed random variable:
+
+```{r}
+a_sample <- sample(a, size = 30)
+a_sample
+a_sample_mean <- mean(a_sample)
+a_sample_mean
+a_sample_sd <- sd(a_sample)
+a_sample_sd
+a_sample_se <- se(a_sample)
+a_sample_se
+upper_a <- a_sample_mean + qnorm(0.975) * a_sample_se
+lower_a <- a_sample_mean + qnorm(0.025) * a_sample_se
+a_sample_ci <- (c(lower_a, upper_a))
+a_sample_ci
+```
+
+Now we can move on to our two variables that are not normally distributed. We will 
