@@ -379,7 +379,7 @@ qqnorm(k, main= "QQplot for Number of Zombies Killed")
 qqline(k, col = "gray") 
 ```
 
-Here is the histogram for Number of Zombies Killed:
+Here is the histogram for **Number of Zombies Killed:**
 
 ```{r}
 hist(k, main = "Histogram for Number of Zombies Killed", xlab = "Number of Zombies Killed")
@@ -391,7 +391,7 @@ what type of distribution this is? From looking at a few pages online, I saw sim
 "Right-Skewed" or "Positive Skewedness." May need to do a log transformation if want to analyze the same way we
 would a normal distribution?
 
-Here is the QQ plot for Years of Education:
+Here is the QQ plot for **Years of Education:**
 
 ```{r}
 qqnorm(e, main= "QQplot for Years of Education")
@@ -413,7 +413,7 @@ error for each variable, and construct the 95% confidence interval for each mean
 that are not drawn from the normal distribution, you may need to base your estimate of the CIs on slightly
 different code than for the normal.*
 
-Ok, let's try this for our first variable, which is Height:
+Ok, let's try this for our first variable, which is **Height:**
 
 First, we will take a sample of 30 random heights from our population of heights:
 
@@ -450,7 +450,7 @@ h_sample_ci
 
 Awesome! Now let's do the same for the other variables.
 
-Next up is weight. I am going to try to put all the code together to streamline the process:
+Next up is **Weight:**
 
 ```{r}
 w_sample <- sample(w, size = 30)
@@ -484,4 +484,61 @@ a_sample_ci <- (c(lower_a, upper_a))
 a_sample_ci
 ```
 
-Now we can move on to our two variables that are not normally distributed. We will 
+Now we can move on to our two variables that are not normally distributed. We will do the same process for everything but the confidence intervals, which we will bootstrap. I think this should work!
+
+Let's look at **Number of Zombies Killed:**
+
+```{r}
+k_sample <- sample(k, size = 30)
+k_sample
+k_sample_mean <- mean(k_sample)
+k_sample_mean
+k_sample_sd <- sd(k_sample)
+k_sample_sd
+k_sample_se <- se(k_sample)
+k_sample_se
+```
+
+Ok, now let's try bootstrapping for the CIs:
+
+```{r}
+set <- NULL # sets up a dummy variable to hold our 10000 simulations
+n <- 30
+for (i in 1:1000){
+    set[i] <- mean(sample(k, n, replace=TRUE))
+}
+quantile(set, c(0.025, 0.975))
+```
+
+These answers seem to make sense from what we know about the patterns we have already seen for the Number of
+Zombies Killed variable.
+
+Now we can do the same for **Year of Education:**
+
+```{r}
+e_sample <- sample(e, size = 30)
+e_sample
+e_sample_mean <- mean(e_sample)
+e_sample_mean
+e_sample_sd <- sd(e_sample)
+e_sample_sd
+e_sample_se <- se(e_sample)
+e_sample_se
+```
+
+And now we will try bootstrapping again for the CIs:
+
+```{r}
+set <- NULL # sets up a dummy variable to hold our 10000 simulations
+n <- 30
+for (i in 1:1000){
+    set[i] <- mean(sample(e, n, replace=TRUE))
+}
+quantile(set, c(0.025, 0.975))
+```
+
+I guess this makes sense too, but the numbers are really similar to what we got for Numbers of Zombies Killed.
+Not sure if this is right? And also unsure if I should have somehow adjusted the code to reflect the numbers from
+just sample I pulled? The way I have it set up now, it is pulling from the entire population. I might play around
+with it some more before turning in.
+
