@@ -665,5 +665,17 @@ standard deviations that are much closer to the population mean and standard dev
 sampled so many more of the variables to calculate these answers. The closer the sample size is to the population
 size, the more accurate our calculations made from these sampling distributions is going to be.
 
+## Challenges:
 
+1. Curious if there is any easier way to find the population standard deviation? Perhaps a function in a package
+I do not know about?
 
+2. Learning ggplot2 more! It seems like it can do so much, so I want to become more familiar with it.
+
+3. Need to learn more about distribution types and how to tell them apart, as well as what that means for how we
+can or cannot maipulate and analyze data.
+
+4. Not sure if I did the bootstrapping correctly for the confidence intervals for Number of Zombies Killed and
+Years of Education?
+
+5. Not sure how to manipulate the bin size for the x-axis data on a histogram. This could be very useful to know!
