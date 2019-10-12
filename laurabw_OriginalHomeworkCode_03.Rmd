@@ -679,3 +679,4 @@ can or cannot maipulate and analyze data.
 Years of Education?
 
 5. Not sure how to manipulate the bin size for the x-axis data on a histogram. This could be very useful to know!
+
