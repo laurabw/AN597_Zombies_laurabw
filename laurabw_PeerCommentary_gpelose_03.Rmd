@@ -1,0 +1,710 @@
+---
+title: "laurabw_PeerCommentary_gpelose_03"
+author: "Greg Pelose"
+date: "10/12/2019"
+output: html_document
+---
+######Hi Laura, this is greg, all of my comments will be placed on the bottom of the document along with the line of code corresponding to it. 
+---
+title: "Zombie HW"
+author: "Laura Brubaker-Wittman"
+date: "10/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Homework Set-up:
+
+*Load in the dataset “zombies.csv” from my GitHub repo at
+<https://github.com/fuzzyatelin/fuzzyatelin.github.io/tree/master/AN597_Fall19/>. 
+This data includes the first and last name and gender of the entire population of 1000 people who have survived
+the zombie apocalypse and are now ekeing out an existence somewhere on the East Coast, along with several other
+variables (height, weight, age, number of years of education, number of zombies they have killed, and college
+major).* 
+
+In order to do this, I will run the code below, after loading the {curl} library:
+```{r}
+library(curl)
+f <- f <- curl("https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/master/AN597_Fall19/zombies.csv")
+d <- read.csv(f, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(d)
+```
+
+This shows me the first 6 rows of the data and my 'Global Environment' in R Studio also shows that this data is
+now loaded for this work session.
+
+## Homework Questions:
+
+1. *Calculate the population mean and standard deviation for each quantitative random variable (height, weight,
+age, number of zombies killed, and years of education). NOTE: You will not want to use the built in var() and sd() commands as these are for samples.*
+
+**Height:**
+    
+First, I want to make a vector that only includes all of the heights. To do so, I will use the code below:
+```{r}
+h <- c(d$height)
+head(h)
+```
+    
+Looks like this worked! The first six elements it gave back match the first six from the "height' column in
+our original table.
+
+Next, I will find the mean of this vector, using the mean() function built in to R:
+
+```{r}
+h_mean <- mean(h)
+h_mean
+```
+    
+This answer also makes sense, looking briefly over the overall data.
+    
+Next, we will find the population standard deviation for height. For this, we will use the sd() function in R,
+to find the sample standard deviation first:
+    
+```{r}
+h_sd <- sd(h)
+h_sd
+```
+    
+Now, to find the population standard deviation, we will take this result and multiply it by the square root of
+(N-1)/N in which N is the number of values for height:
+
+```{r}
+h_psd <- function(h){h_sd*sqrt((length(h)-1)/length(h))}
+h_psd(h)
+```
+
+As we can see, this is close to the number we got back when using sd() only, but this is now more accurate to describe the standard deviation for the entire population instead of just a sample from the population.
+
+We can next do this for each of the other quantitative random variables:
+
+**Weight:**    
+
+First, we make a vector from just the 'weight' column from the original data frame:
+
+```{r}
+w <- c(d$weight)
+head(w)
+```
+
+Next, we find the mean:
+
+```{r}
+w_mean <- mean(w)
+w_mean
+```
+
+This answer looks good! Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+w_sd <- sd(w)
+w_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+w_psd <- function(w){w_sd*sqrt((length(w)-1)/length(w))}
+w_psd(w)
+```
+
+Great, let's keep going with the other variables!
+
+**Age:**
+
+First, we make a vector from just the 'age' column from the original data frame:
+
+```{r}
+a <- c(d$age)
+head(a)
+```
+
+Next, we find the mean:
+
+```{r}
+a_mean <- mean(a)
+a_mean
+```
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+a_sd <- sd(a)
+a_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+a_psd <- function(a){a_sd*sqrt((length(a)-1)/length(a))}
+a_psd(a)
+```
+
+Looking good! Next up is 'number of zombies killed.' Fun!!
+
+**Number of Zombies Killed:**
+
+First, we make a vector from just the 'Zombies_killed' column from the original data frame:
+
+```{r}
+k <- c(d$zombies_killed)
+head(k)
+```
+
+Next, we find the mean:
+
+```{r}
+k_mean <- mean(k)
+k_mean
+```
+
+Looks like on average they haven't had to kill TOO many zombies...yet!
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+k_sd <- sd(k)
+k_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+k_psd <- function(k){k_sd*sqrt((length(k)-1)/length(k))}
+k_psd(k)
+```
+
+Awesome! Almost there. The last variable we will get the mean and population standard deviation for is 'years of
+education.'
+
+**Years of Education:**
+
+First, we make a vector from just the 'year_of_education' column from the original data frame:
+
+```{r}
+e <- c(d$years_of_education)
+head(e)
+```
+
+Next, we find the mean:
+
+```{r}
+e_mean <- mean(e)
+e_mean
+```
+
+Most definitely a college town!
+
+Next up, is sample standard deviation so we can find population standard deviation:
+
+```{r}
+e_sd <- sd(e)
+e_sd
+```
+
+Ok, now we can put this into the population standard deviation function:
+
+```{r}
+e_psd <- function(e){e_sd*sqrt((length(e)-1)/length(e))}
+e_psd(e)
+```
+
+Great! Now we have all of our population means and standard deviations for this variables, we can move on to 
+question #2!
+
+2. *Use {ggplot} to make boxplots of each of these variables by gender.*
+
+First off, this is an interesting population in which every person identifies as either male or female. While I
+am not one for people having to identify by a strict gender binary, we will go with it for this exercise. 
+
+As far as coding, at first, I think I made this way too hard, thinking I would need to write functions into the
+{ggplot} function. But, then I realized that this is part of the awesomeness of {ggplot}, that it has built-in
+functions already and knows what to do with the data when you ask it to create a boxplot based on specific
+variables. After looking through older modules, this is what I came up with:
+
+**Height**
+        
+```{r}
+library(ggplot2)
+height_gender <- ggplot(data=d, aes(x=gender, y=height)) #this means I am pulling from the data frame "d" and that the variables for my x axis will be pulled from the column marked "gender" and grouped by each category found, in this case, male and female, and that my y axis variables will be pulled from the column marked "height"
+height_gender <- height_gender + geom_boxplot() #this tells R that we specifically want a boxplot
+height_gender <- height_gender + theme(axis.text.x=element_text(angle=90)) #each element of the X axis will be at a 90 degree angle. 
+height_gender <- height_gender + ylab("Height") #this means the y axis will be labeled "Height"
+height_gender <- height_gender + xlab("Gender") #this means the x axis will be labeled "Gender"
+height_gender <- height_gender + ggtitle("Height by Gender") #this means the label at the top of plot will be "Height by Gender"
+height_gender
+```
+
+This looks pretty good! Not sure why the title is not centered, but all the elements are there. Also, probably do
+not need to have "Female" and "Male" at a 90 degree angle, but it is cool to know how to do this for making a box
+plot that has a large number of x axis variables.   
+
+Now we can do the same for the other variables:
+
+**Age**
+
+```{r}
+age_gender <- ggplot(data=d, aes(x=gender, y=age)) 
+age_gender <- age_gender + geom_boxplot() 
+age_gender <- age_gender + ylab("Age") 
+age_gender <- age_gender + xlab("Gender") 
+age_gender <- age_gender + ggtitle("Age by Gender") 
+age_gender
+```
+
+This shows us that the ages of both males and females are the really close for this zombie killing population!
+
+Also, I took out the line of code for angling the x-axis labels and it looks good. They can stay horizontal like
+this when we only have two groups we are comparing.
+        
+Next up weight (yes, I realize I did age and weight out of order. Oh well!):
+
+**Weight**
+
+```{r}
+weight_gender <- ggplot(data=d, aes(x=gender, y=weight)) 
+weight_gender <- weight_gender + geom_boxplot() 
+weight_gender <- weight_gender + ylab("Weight") 
+weight_gender <- weight_gender + xlab("Gender") 
+weight_gender <- weight_gender + ggtitle("Weight by Gender") 
+weight_gender
+```
+
+Looks good! Males overall weigh more than females, which makes sense.
+
+**Number of Zombies Killed**
+
+```{r}
+kills_gender <- ggplot(data=d, aes(x=gender, y=zombies_killed)) 
+kills_gender <- kills_gender + geom_boxplot() 
+kills_gender <- kills_gender + ylab("Number of Zombies Killed") 
+kills_gender <- kills_gender + xlab("Gender") 
+kills_gender <- kills_gender + ggtitle("Number of Zombie Kills by Gender") 
+kills_gender
+```
+
+Looks like zombie kills are not differentiate by gender, with some of the highest kills being by females. 
+
+**Years of Education**
+
+```{r}
+edu_gender <- ggplot(data=d, aes(x=gender, y=years_of_education)) 
+edu_gender <- edu_gender + geom_boxplot() 
+edu_gender <- edu_gender + ylab("Years of Education") 
+edu_gender <- edu_gender + xlab("Gender") 
+edu_gender <- edu_gender + ggtitle("Years of Education by Gender") 
+edu_gender
+```
+
+Looks good! On to question #3.
+
+3. *Use {ggplot} to make scatterplots of height and weight in relation to age. Do these variables seem to be
+related? In what way?*
+
+Here is the scatterplot for **Height in Relation to Age:**
+
+```{r}
+height_age <- ggplot(data = d, aes(x = age, y = height))
+height_age <- height_age + xlab("Age") + ylab("Height")
+height_age <- height_age + geom_point()
+height_age <- height_age + ggtitle("Height in Relation to Age")
+height_age
+```
+
+There seems to be a general positive correlation between height and age, in that, as one gets older, the tend to
+get taller, with the assumption that this would plateau at a certain point.
+
+Here is the scatterplot for **Weight in Relation to Age:**
+
+```{r}
+weight_age <- ggplot(data = d, aes(x = age, y = weight))
+weight_age <- weight_age + xlab("Age") + ylab("Weight")
+weight_age <- weight_age + geom_point()
+weight_age <- weight_age + ggtitle("Weight in Relation to Age")
+weight_age
+```
+
+While this one also appears to have an overall positive correlation, in that as one gets older, they tend to
+weigh more, it seems a bit weaker than the relationship between height and age.
+
+4. *Using histograms and Q-Q plots, check whether the quantitative variables seem to be drawn from a normal
+distribution. Which seem to be and which do not (hint: not all are drawn from the normal distribution)? For those
+that are not normal, can you determine from which common distribution they are drawn?*
+
+Here is the Q-Q plot for Height:
+
+```{r}
+qqnorm(h, main= "QQplot for Height")
+qqline(h, col = "gray") #Makes a Q-Q line to see how the points fall on this line, and the color of the line is gray
+```
+
+Here is a historgram for Height:
+
+```{r}
+hist(h, main = "Histogram for Height", xlab = "Height") #code for a histogram along with the main title of the graph and the x-axis label
+```
+
+Based on both of these, it looks like height is normally distributed.
+
+Here is the QQplot for Weight:
+
+```{r}
+qqnorm(w, main= "QQplot for Weight")
+qqline(w, col = "gray") 
+```
+
+Historgram for Weight:
+
+```{r}
+hist(h, main = "Histogram for Weight", xlab = "Weight")
+```
+
+Weight also looks normally distributed, which makes sense for this population.
+
+QQplot for Age:
+
+```{r}
+qqnorm(a, main= "QQplot for Age")
+qqline(a, col = "gray") 
+```
+
+Here is the histogram for Age:
+
+```{r}
+hist(a, main = "Histogram for Age", xlab = "Age in Years")
+```
+
+Overall, age seems to be normally distributed, though not quite as standardized as height and weight.
+
+Here is the QQplot for Number of Zombies Killed:
+
+```{r}
+qqnorm(k, main= "QQplot for Number of Zombies Killed")
+qqline(k, col = "gray") 
+```
+
+Here is the histogram for **Number of Zombies Killed:**
+
+```{r}
+hist(k, main = "Histogram for Number of Zombies Killed", xlab = "Number of Zombies Killed")
+```
+
+This is not normally distributed, as can be seen from both the QQplot with the points and line not matching up at
+all. On the histogram, the distribution is skewed to one end, and there cannot be negative follows. I am not sure
+what type of distribution this is? From looking at a few pages online, I saw similar distributed data called,
+"Right-Skewed" or "Positive Skewedness." May need to do a log transformation if want to analyze the same way we
+would a normal distribution?
+
+Here is the QQ plot for **Years of Education:**
+
+```{r}
+qqnorm(e, main= "QQplot for Years of Education")
+qqline(e, col = "gray")
+```
+
+And here is the histogram:
+
+```{r}
+hist(e, main = "Histogram for Years of Education", xlab = "Years of Edcuation")
+```
+
+This one follows a similar pattern to number of zombies killed, with a one end of the data skewed instead of
+having a central tendency, or "Right Skewed."
+
+5. *Now use the sample() function to sample ONE subset of 30 zombie survivors (without replacement) from this
+population and calculate the mean and sample standard deviation for each variable. Also estimate the standard
+error for each variable, and construct the 95% confidence interval for each mean. Note that for the variables
+that are not drawn from the normal distribution, you may need to base your estimate of the CIs on slightly
+different code than for the normal.*
+
+Ok, let's try this for our first variable, which is **Height:**
+
+First, we will take a sample of 30 random heights from our population of heights:
+
+```{r}
+h_sample <- sample(h, size = 30)
+h_sample
+```
+
+Great! Now let's find the mean and standard deviation for this sample:
+
+```{r}
+h_sample_mean <- mean(h_sample)
+h_sample_mean
+h_sample_sd <- sd(h_sample) # We can use just the sd() function this time since this is a sample standard deviation and not a population standard deviation
+h_sample_sd
+```
+
+Here is the standard error:
+
+```{r}
+library(sciplot)
+h_sample_se <- se(h_sample)
+h_sample_se
+```
+
+For the confidence intervals, we will do:
+
+```{r}
+upper_h <- h_sample_mean + qnorm(0.975) * h_sample_se
+lower_h <- h_sample_mean + qnorm(0.025) * h_sample_se
+h_sample_ci <- (c(lower_h, upper_h))
+h_sample_ci
+```
+
+Awesome! Now let's do the same for the other variables.
+
+Next up is **Weight:**
+
+```{r}
+w_sample <- sample(w, size = 30)
+w_sample
+w_sample_mean <- mean(w_sample)
+w_sample_mean
+w_sample_sd <- sd(w_sample)
+w_sample_sd
+w_sample_se <- se(w_sample)
+w_sample_se
+upper_w <- w_sample_mean + qnorm(0.975) * w_sample_se
+lower_w <- w_sample_mean + qnorm(0.025) * w_sample_se
+w_sample_ci <- (c(lower_w, upper_w))
+w_sample_ci
+```
+
+Looks good! Now we can do the same for Age, since it is also a normally distributed random variable:
+
+```{r}
+a_sample <- sample(a, size = 30)
+a_sample
+a_sample_mean <- mean(a_sample)
+a_sample_mean
+a_sample_sd <- sd(a_sample)
+a_sample_sd
+a_sample_se <- se(a_sample)
+a_sample_se
+upper_a <- a_sample_mean + qnorm(0.975) * a_sample_se
+lower_a <- a_sample_mean + qnorm(0.025) * a_sample_se
+a_sample_ci <- (c(lower_a, upper_a))
+a_sample_ci
+```
+
+Now we can move on to our two variables that are not normally distributed. We will do the same process for everything but the confidence intervals, which we will bootstrap. I think this should work!
+
+Let's look at **Number of Zombies Killed:**
+
+```{r}
+k_sample <- sample(k, size = 30)
+k_sample
+k_sample_mean <- mean(k_sample)
+k_sample_mean
+k_sample_sd <- sd(k_sample)
+k_sample_sd
+k_sample_se <- se(k_sample)
+k_sample_se
+```
+
+Ok, now let's try bootstrapping for the CIs:
+
+```{r}
+set <- NULL 
+n <- 30
+for (i in 1:1000){
+    set[i] <- mean(sample(k, n, replace=TRUE))
+}
+quantile(set, c(0.025, 0.975))
+```
+
+These answers seem to make sense from what we know about the patterns we have already seen for the Number of
+Zombies Killed variable.
+
+Now we can do the same for **Year of Education:**
+
+```{r}
+e_sample <- sample(e, size = 30)
+e_sample
+e_sample_mean <- mean(e_sample)
+e_sample_mean
+e_sample_sd <- sd(e_sample)
+e_sample_sd
+e_sample_se <- se(e_sample)
+e_sample_se
+```
+
+And now we will try bootstrapping again for the CIs:
+
+```{r}
+set <- NULL 
+n <- 30
+for (i in 1:1000){
+    set[i] <- mean(sample(e, n, replace=TRUE))
+}
+quantile(set, c(0.025, 0.975))
+```
+
+I guess this makes sense too, but the numbers are really similar to what we got for Numbers of Zombies Killed.
+Not sure if this is right? And also unsure if I should have somehow adjusted the code to reflect the numbers from
+just sample I pulled? The way I have it set up now, it is pulling from the entire population. I might play around
+with it some more before turning in.
+
+6. Now draw 99 more random samples of 30 zombie apocalypse survivors, and calculate the mean for each variable
+for each of these samples. Together with the first sample you drew, you now have a set of 100 means for each
+variable (each based on 30 observations), which constitutes a sampling distribution for each variable. What are
+the means and standard deviations of this distribution of means for each variable? How do the standard deviations
+of means compare to the standard errors estimated in [5]? What do these sampling distributions look like (a graph
+might help here)? Are they normally distributed? What about for those variables that you concluded were not
+originally drawn from a normal distribution?
+
+Ok, looks like we learned how to do this in **Module 8.** Let's try it for **Height:**
+
+```{r}
+h_sample_dis <- NULL 
+for (i in 1:99){
+    h_sample_dis[[i]] <- sample(h,size=30, replace=FALSE)
+}
+head(h_sample_dis)
+```
+
+Ok, now we have a sampling distribution. From this, let's find the mean and standard deviation:
+
+```{r}
+hsdm <- NULL
+for (i in 1:99){
+    hsdm[i] <- mean(h_sample_dis[[i]])
+}
+mean(hsdm)
+sd(hsdm)
+```
+
+Great! This looks good. Let's try a graph too:
+
+```{r}
+hist(hsdm, main = "Histogram for Sampling Distribution of Height", xlab = "Height")
+```
+
+Seems to be normally distributed.
+
+Ok, now let's do this for all the other variables.
+
+**Weight:**
+
+```{r}
+w_sample_dis <- NULL 
+for (i in 1:99){
+    w_sample_dis[[i]] <- sample(w,size=30, replace=FALSE)
+}
+head(w_sample_dis)
+wsdm <- NULL
+for (i in 1:99){
+    wsdm[i] <- mean(w_sample_dis[[i]])
+}
+mean(wsdm)
+sd(wsdm)
+hist(wsdm, main = "Histogram for Sampling Distribution of Weight", xlab = "Weight")
+```
+
+
+Seems like it is close to a normal distribution.
+
+**Age:**
+
+```{r}
+a_sample_dis <- NULL 
+for (i in 1:99){
+    a_sample_dis[[i]] <- sample(a,size=30, replace=FALSE)
+}
+head(a_sample_dis)
+asdm <- NULL
+for (i in 1:99){
+    asdm[i] <- mean(a_sample_dis[[i]])
+}
+mean(asdm)
+sd(asdm)
+hist(asdm, main = "Histogram for Sampling Distribution of Age", xlab = "Age")
+```
+
+Seems close to normal distribution. I wonder if this would be more clear if I were to play with the bin size for
+the x-axis? May try this for final code.
+
+**Number of Zombies Killed:**
+
+```{r}
+k_sample_dis <- NULL 
+for (i in 1:99){
+    k_sample_dis[[i]] <- sample(k,size=30, replace=FALSE)
+}
+head(k_sample_dis)
+ksdm <- NULL
+for (i in 1:99){
+    ksdm[i] <- mean(k_sample_dis[[i]])
+}
+mean(ksdm)
+sd(ksdm)
+hist(ksdm, main = "Histogram for Sampling Distribution of Zombie Kills", xlab = "Number of Zombies Killed")
+```
+
+This one still seems a bit right-skewed.
+
+**Years of Education:**
+
+```{r}
+e_sample_dis <- NULL 
+for (i in 1:99){
+    e_sample_dis[[i]] <- sample(e,size=30, replace=FALSE)
+}
+head(e_sample_dis)
+esdm <- NULL
+for (i in 1:99){
+    esdm[i] <- mean(e_sample_dis[[i]])
+}
+mean(esdm)
+sd(esdm)
+hist(esdm, main = "Histogram for Sampling Distribution of Years of Education", xlab = "Years of Education")
+```
+
+This one looks like more of a normal distribution than the population distribution for this same variable. Still 
+slightly right-skewed though?
+
+As far as similarities of means and standard deviations, using the sampling distribution gives us means and
+standard deviations that are much closer to the population mean and standard deviation. This makes sense as we
+sampled so many more of the variables to calculate these answers. The closer the sample size is to the population
+size, the more accurate our calculations made from these sampling distributions is going to be.
+
+## Challenges:
+
+1. Curious if there is any easier way to find the population standard deviation? Perhaps a function in a package
+I do not know about?
+
+2. Learning ggplot2 more! It seems like it can do so much, so I want to become more familiar with it.
+
+3. Need to learn more about distribution types and how to tell them apart, as well as what that means for how we
+can or cannot maipulate and analyze data.
+
+4. Not sure if I did the bootstrapping correctly for the confidence intervals for Number of Zombies Killed and
+Years of Education?
+
+5. Not sure how to manipulate the bin size for the x-axis data on a histogram. This could be very useful to know!
+
+
+
+Gregs comments 
+line 80
+  Great job here finding the population standard deviation, this worked on my computer as well!
+line 216
+  great job with question one. 
+line 241
+  I am also not sure why your title is not centered, but other than that this looks very well done.
+line 301.
+  all of these graphs above look very good. I totally realized that I did not add titles or anything like that to my graphs... thanks for the reminder before I submit mine to the final draft. 
+line 330
+  I agree with you on the explanation of the second scattterplot.
+line 394
+  I did not have this realization when I did my assignemnt. I did not know to click to enlarge my image and take a closer look at the graphs to be able to detect skewness. So great job being able to detect that this is not "normal" but, unfortunately, I am also not sure which distribution this represents. After looking online as well I agree it might be "right skewed". 
+550
+  I struggled with number 5, I had a problem with finding the standard error. But after looking at your code everything ran very well on my console and looks good. I also am not sure as to why they both look so similar, I will also look into this and try and find out a solution but I do not have one right now. 
+  
+line 673
+  Great job with this question, for age, messing around with the bin might not be a bad idea, I am curious as to what would come from the result of that. Other than that, you did a great job with this whole assignment. You have clearly put a ton of time and effort into this and it shows. Have a great day!!!
+  
