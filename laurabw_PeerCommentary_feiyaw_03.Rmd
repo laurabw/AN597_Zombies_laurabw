@@ -684,8 +684,8 @@ Years of Education?
 Overall, your code looks great. You got most of questions right and use the functions on the module. It can still have some improvement:
 1. For all of the Question, you try to use simple function to solve everything. The easier wahy is to build a function to call all those function, and just apply build-function once, you can get the data you needed. 
 2. if you can summarize the data into a table, it would be helpful. It just be a matrix.
-3.For the histogram, you can add a normal curve on the graph to show the how the histogram compare with the normal distribution. You canrefer to Module 9 for the functions.
+3.For the histogram, you can add a normal curve on the graph to show the how the histogram compare with the normal distribution. You canrefer to Module 9 for the functions, it called curve().
 4. I see you use package sciplot to calculate the standard error. Graet way to solve it.
-5. The distribution of Zombies_killed and year of education are Poisson distribution. However, if you sample them and take the mean of each sample, those means should be normal distribution. The histogram is not as helpful as QQ plot.you can also try to apply the QQ plot and you can see a clear normal distribution.  
+5. The distribution of Zombies_killed and year of education are Poisson distribution. However, if you sample them and take the mean of each sample, those means should be normal distribution. The histogram is not as helpful as Q-Q plot.you can also try to apply the Q-Q plot and you can see a clear normal distribution.  
 
 
