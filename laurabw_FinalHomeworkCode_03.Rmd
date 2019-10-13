@@ -303,6 +303,7 @@ Here is the scatterplot for **Height in Relation to Age:**
 height_age <- ggplot(data = d, aes(x = age, y = height))
 height_age <- height_age + xlab("Age") + ylab("Height")
 height_age <- height_age + geom_point()
+height_age <- height_age + geom_smooth(method="lm", fullrange=TRUE)
 height_age <- height_age + ggtitle("Height in Relation to Age")
 height_age
 ```
@@ -316,6 +317,7 @@ Here is the scatterplot for **Weight in Relation to Age:**
 weight_age <- ggplot(data = d, aes(x = age, y = weight))
 weight_age <- weight_age + xlab("Age") + ylab("Weight")
 weight_age <- weight_age + geom_point()
+weight_age <- weight_age + geom_smooth(method="lm", fullrange=TRUE)
 weight_age <- weight_age + ggtitle("Weight in Relation to Age")
 weight_age
 ```
